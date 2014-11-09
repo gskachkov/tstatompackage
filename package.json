@@ -1,0 +1,19 @@
+{
+  "name": "tstpackage",
+  "main": "./lib/main",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationCommands": {
+    "atom-workspace": "tstpackage:toggle"
+  },
+  "repository": "https://github.com/atom/tstpackage",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "fs-plus": "^2.3.1",
+    "pathwatcher": "^2.3.2"
+  },
+  "devDependencies": {}
+}
