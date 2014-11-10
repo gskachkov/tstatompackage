@@ -2,9 +2,9 @@ module.exports =
 class ParseLCOV
   constructor: (array) ->
     @data = array
-    console.log 'constrauct'
+    #console.log 'constrauct'
   parse: ->
-    console.log 'parse 1'
+    #console.log 'parse 1'
     i = 0
     length = @data.length
     coverage = {}
@@ -32,5 +32,5 @@ class ParseLCOV
 
       i++
 
-    console.log coverage
+    #console.log coverage
     return coverage

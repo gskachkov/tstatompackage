@@ -14,11 +14,22 @@ class CoverageView extends View
 
   initialize: (@editorView) ->
     @editor = @editorView.getModel()
+    basePath = pathToLCOV = atom.config.get('tstpackage.basePath')
+    currFile = @editor.getPath().replace(basePath, '.')
+    pathToLCOV = atom.config.get('tstpackage.pathToLCOV')
+    @markers = []
+    pw.watch pathToLCOV, =>
+      console.log 'File is changed'
+      @showCoverage(@editor, pathToLCOV, currFile)
 
-    pathToLCOV = '/Users/Developer/Projects/ppjs_1/test/coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info'
-    #pw.watch p, (event, path) ->
-    #  console.log(event, path)
+    @showCoverage(@editor, pathToLCOV, currFile)
 
+  showCoverage: (editor, pathToLCOV, currFile) ->
+    currCoverage = @getCoverage(pathToLCOV, currFile)
+    if currCoverage?
+      @markGutter editor, currCoverage
+
+  getCoverage: (pathToLCOV, currFile) ->
     file = new pw.File(pathToLCOV)
 
     content = file.readSync()
@@ -26,24 +37,20 @@ class CoverageView extends View
 
     parser = new ParseLCOV(arr)
     coverages = parser.parse()
-    bathPath = '/Users/Developer/Projects/ppjs_1'
-    currFile = "./src/scripts/app/modules/common/cmsfactory/cms-factory.js"
-    currCoverage = coverages[currFile]
 
-    #@subscribe @editor.onDidChangeScrollTop =>
-    #    lastScreenRow = @editor.getLastVisibleScreenRow()
-    #    firstScreenRow = @editor.getFirstVisibleScreenRow()
-    #    console.log 'Did onDidChangeScrollTop ' + lastScreenRow + ' to ' + firstScreenRow
+    return coverages[currFile]
 
-    #    for line in currCoverage.coverdLines
-    #      if line.line <= lastScreenRow && line.line >= firstScreenRow
+  markGutter: (editor, currCoverage) ->
+    for marker in @markers
+      marker.destroy()
+
+    @markers = []
 
     for line in currCoverage.coverdLines
-      marker = @editor.markBufferRange([[line.line, 0], [line.line, Infinity]], invalidate: 'never')
-      if line.count > 0?
-        @editor.decorateMarker(marker, type: 'gutter', class: 'covered')
+      marker = editor.markBufferRange([[line.line - 1, 0], [line.line - 1, Infinity]], invalidate: 'never')
+      if line.count > 0
+        editor.decorateMarker(marker, type: 'gutter', class: 'covered')
       else
-        @editor.decorateMarker(marker, type: 'gutter', class: 'not-covered')
+        editor.decorateMarker(marker, type: 'gutter', class: 'not-covered')
 
-      @markers ?= []
       @markers.push(marker)
