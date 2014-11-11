@@ -2,19 +2,19 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle tstpackage'
-      'command': 'tstpackage:toggle'
+      'label': 'Toggle test coverage'
+      'command': 'testcoverage:show'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'tstpackage'
+      'label': 'Test coverage'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'tstpackage:toggle'
+          'label': 'show'
+          'command': 'testcoverage:show'
         }
       ]
     ]

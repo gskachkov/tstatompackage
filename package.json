@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "A short description of your package",
   "activationCommands": {
-    "atom-workspace": "tstpackage:toggle"
+    "atom-workspace": "testcoverage:show"
   },
   "repository": "https://github.com/atom/tstpackage",
   "license": "MIT",

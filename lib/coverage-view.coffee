@@ -17,9 +17,13 @@ class CoverageView extends View
     basePath = pathToLCOV = atom.config.get('tstpackage.basePath')
     currFile = @editor.getPath().replace(basePath, '.')
     pathToLCOV = atom.config.get('tstpackage.pathToLCOV')
+
     @markers = []
+
     pw.watch pathToLCOV, =>
-      console.log 'File is changed'
+      @showCoverage(@editor, pathToLCOV, currFile)
+
+    @subscribe @editor.onDidChange =>
       @showCoverage(@editor, pathToLCOV, currFile)
 
     @showCoverage(@editor, pathToLCOV, currFile)
@@ -54,3 +58,4 @@ class CoverageView extends View
         editor.decorateMarker(marker, type: 'gutter', class: 'not-covered')
 
       @markers.push(marker)
+      deactivate: ->

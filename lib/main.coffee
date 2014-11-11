@@ -12,4 +12,5 @@
      atom.workspaceView.eachEditorView (editorView) ->
        if editorView.attached and editorView.getPaneView()?
          new CoverageView(editorView)
-         console.log 'Activate'
+   deactivate: ->
+     atom.workspaceView.eachEditorView (editorView) ->
