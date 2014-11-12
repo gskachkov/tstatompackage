@@ -4,10 +4,10 @@
    config:
     pathToLCOV:
       type: 'string'
-      default: '/Users/Developer/Projects/ppjs_1/test/coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info'
+      default: '/Users/Developer/Projects/foo/test/coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info'
     basePath:
       type: 'string'
-      default: '/Users/Developer/Projects/ppjs_1/test/coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info'
+      default: '/Users/Developer/Projects/foo'
    activate: ->
      atom.workspaceView.eachEditorView (editorView) ->
        if editorView.attached and editorView.getPaneView()?
