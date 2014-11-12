@@ -6,7 +6,7 @@
   "activationCommands": {
     "atom-workspace": "testcoverage:show"
   },
-  "repository": "https://github.com/atom/tstpackage",
+  "repository": "https://github.com/gskachkov/tstatompackage",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
