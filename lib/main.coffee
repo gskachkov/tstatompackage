@@ -13,4 +13,4 @@
        if editorView.attached and editorView.getPaneView()?
          new CoverageView(editorView)
    deactivate: ->
-     atom.workspaceView.eachEditorView (editorView) ->
+     #atom.workspaceView.eachEditorView (editorView) ->
