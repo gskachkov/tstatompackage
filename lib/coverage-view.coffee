@@ -1,6 +1,7 @@
 #_ = require 'underscore-plus'
 fs = require 'fs-plus'
-pw = require 'pathwatcher'
+path = require 'path'
+#pw = require 'pathwatcher'
 ParseLCOV = require './parselcov'
 {Range, View, TextEditor, TextEditorView} = require 'atom'
 #TagFinder = require './tag-finder'
@@ -14,13 +15,23 @@ class CoverageView extends View
 
   initialize: (@editorView) ->
     @editor = @editorView.getModel()
-    basePath = pathToLCOV = atom.config.get('tstpackage.basePath')
-    currFile = @editor.getPath().replace(basePath, '.')
+    basePath = atom.config.get('tstpackage.basePath')
+    filePath = @editor.getPath()
+    console.log @editor , @editorView
+    console.log filePath
+
+    if typeof(filePath) == 'undefined'
+      return
+
+    #currFile = path.replace(basePath, '.').replace('\\','/')
+    currFile = "./" + path.relative(basePath, filePath).replace(/\\/g,'/')
+    console.log currFile
+
     pathToLCOV = atom.config.get('tstpackage.pathToLCOV')
 
     @markers = []
 
-    pw.watch pathToLCOV, =>
+    fs.watch pathToLCOV, =>
       @showCoverage(@editor, pathToLCOV, currFile)
 
     @subscribe @editor.onDidChange =>
@@ -34,9 +45,8 @@ class CoverageView extends View
       @markGutter editor, currCoverage
 
   getCoverage: (pathToLCOV, currFile) ->
-    file = new pw.File(pathToLCOV)
+    content = fs.readFileSync(pathToLCOV,  {encoding: 'utf8'})
 
-    content = file.readSync()
     arr = content.split('\n')
 
     parser = new ParseLCOV(arr)
