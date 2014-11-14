@@ -2,7 +2,7 @@
   "name": "coverage-gutter",
   "main": "./lib/main",
   "version": "0.4.0",
-  "description": "Package for showing test coverage in the gutter(column with line numbers). Support refresh if LCOV information is updated",
+  "description": "Shows the test coverage in the gutter(column with line numbers). Support refresh if LCOV information is updated",
   "activationCommands": {
     "atom-workspace": "testcoverage:show"
   },
