@@ -14,4 +14,11 @@ BasePath has to be selected: ***/Users/Developer/Projects/foo/web***
 
 ---
 
+-	green line - fully covered line
+-	orange line - some of the branch in if condition is not covered
+-	red line - color is uncovered by test line
+
+--- If you found bug or you have some question in configuration please use this link  
+ https://github.com/gskachkov/tstatompackage/issues ---
+
 ![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)

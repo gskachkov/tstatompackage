@@ -21,6 +21,11 @@ class CoverageView extends View
 
     pathToLCOV = atom.config.get('tstpackage.pathToLCOV')
 
+    if !fs.existsSync(pathToLCOV)
+      console.log 'Could not find file by pathToLCOV property.'
+      alert 'Could not find file by pathToLCOV property.'
+      return
+
     @markers = []
 
     @watcher = fs.watch pathToLCOV, =>
@@ -62,9 +67,13 @@ class CoverageView extends View
 
     for line in currCoverage.coveredLines
       marker = editor.markBufferRange([[line.line - 1, 0], [line.line - 1, Infinity]], invalidate: 'never')
+
+      cssClass = 'not-covered'
       if line.count > 0
-        editor.decorateMarker(marker, type: 'gutter', class: 'covered')
-      else
-        editor.decorateMarker(marker, type: 'gutter', class: 'not-covered')
+        cssClass = 'covered'
+        if currCoverage.uncoveredBranches?
+          cssClass = if currCoverage.uncoveredBranches.indexOf(line.line) > -1 then 'partly-covered' else 'covered'
+
+      editor.decorateMarker(marker, type: 'gutter', class: cssClass)
 
       @markers.push(marker)
