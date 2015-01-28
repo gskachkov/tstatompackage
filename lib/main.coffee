@@ -9,8 +9,10 @@
       type: 'string'
       default: '/Users/Developer/Projects/foo'
    activate: ->
-     atom.workspaceView.eachEditorView (editorView) ->
-       if editorView.attached and editorView.getPaneView()?
-         new CoverageView(editorView)
+     atom.workspace.getTextEditors().forEach (editor) ->
+       new CoverageView(editor)
+
+     atom.workspace.onDidAddTextEditor (event) ->
+       new CoverageView(event.textEditor)
    deactivate: ->
      #atom.workspaceView.eachEditorView (editorView) ->

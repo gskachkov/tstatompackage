@@ -9,8 +9,8 @@ class CoverageView extends View
     @div =>
       @div class: 'coverage-view', style: 'display: none', outlet: 'startView'
       @div class: 'coverage-view', style: 'display: none', outlet: 'endView'
-  initialize: (@editorView) ->
-    @editor = @editorView.getModel()
+  initialize: (@_editor) ->
+    @editor = @_editor
     basePath = atom.config.get('tstpackage.basePath')
     filePath = @editor.getPath()
 
@@ -74,6 +74,6 @@ class CoverageView extends View
         if currCoverage.uncoveredBranches?
           cssClass = if currCoverage.uncoveredBranches.indexOf(line.line) > -1 then 'partly-covered' else 'covered'
 
-      editor.decorateMarker(marker, type: 'gutter', class: cssClass)
+      editor.decorateMarker(marker, {type: 'line-number', class: cssClass})
 
       @markers.push(marker)
