@@ -11,7 +11,7 @@ class CoverageView extends View
       @div class: 'coverage-view', style: 'display: none', outlet: 'endView'
   initialize: (@_editor) ->
     @editor = @_editor
-    basePath = atom.config.get('tstpackage.basePath')
+    basePath = atom.config.get('coverage-gutter.basePath')
     filePath = @editor.getPath()
 
     if typeof(filePath) == 'undefined'
@@ -19,7 +19,7 @@ class CoverageView extends View
 
     currFile = "./" + path.relative(basePath, filePath).replace(/\\/g,'/')
 
-    pathToLCOV = atom.config.get('tstpackage.pathToLCOV')
+    pathToLCOV = atom.config.get('coverage-gutter.pathToLCOV')
 
     if !fs.existsSync(pathToLCOV)
       console.log 'Could not find file by pathToLCOV property.'

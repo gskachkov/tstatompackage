@@ -9,7 +9,7 @@
   "repository": "https://github.com/gskachkov/tstatompackage",
   "license": "MIT",
   "engines": {
-    "atom": ">0.170.0"
+    "atom": ">0.180.0"
   },
   "dependencies": {
     "fs-plus": "^2.3.1",

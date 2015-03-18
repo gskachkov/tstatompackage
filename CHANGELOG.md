@@ -10,3 +10,8 @@
 -	Check for existing the LCOV file
 
 -	Show partly covered if statement by orange color
+
+0.10.0 - Update
+---------------
+
+-	Change name of property from package config
