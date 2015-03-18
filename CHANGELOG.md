@@ -15,3 +15,8 @@
 ---------------
 
 -	Change name of property from package config
+
+0.11.0 - Update
+---------------
+
+-	Update readme
