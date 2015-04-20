@@ -20,3 +20,5 @@
 ---------------
 
 -	Update readme
+
+0.12.0 - fix issue with deprecated dependency https://github.com/gskachkov/tstatompackage/issues/3
