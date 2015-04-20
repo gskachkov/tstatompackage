@@ -1,7 +1,7 @@
 fs = require 'fs-plus'
 path = require 'path'
 ParseLCOV = require './parselcov'
-{View} = require 'atom'
+{View} = require 'atom-space-pen-views'
 
 module.exports =
 class CoverageView extends View
