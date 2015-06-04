@@ -2,6 +2,7 @@ fs = require 'fs-plus'
 path = require 'path'
 ParseLCOV = require './parselcov'
 {View} = require 'atom-space-pen-views'
+{CompositeDisposable} = require 'event-kit'
 
 module.exports =
 class CoverageView extends View
@@ -10,6 +11,8 @@ class CoverageView extends View
       @div class: 'coverage-view', style: 'display: none', outlet: 'startView'
       @div class: 'coverage-view', style: 'display: none', outlet: 'endView'
   initialize: (@_editor) ->
+    @subscriptions = new CompositeDisposable
+
     @editor = @_editor
     basePath = atom.config.get('coverage-gutter.basePath')
     filePath = @editor.getPath()
@@ -31,12 +34,12 @@ class CoverageView extends View
     @watcher = fs.watch pathToLCOV, =>
       @showCoverage(@editor, pathToLCOV, currFile)
 
-    @subscribe @editor.onDidDestroy =>
+    @subscriptions.add @editor.onDidDestroy =>
       @watcher.close()
       #TODO Reafctor later
       @currCoverage = undefined
 
-    @subscribe @editor.onDidChange =>
+    @subscriptions.add @editor.onDidChange =>
       @showCoverage(@editor, pathToLCOV, currFile)
 
     @showCoverage(@editor, pathToLCOV, currFile)
@@ -77,3 +80,5 @@ class CoverageView extends View
       editor.decorateMarker(marker, {type: 'line-number', class: cssClass})
 
       @markers.push(marker)
+  destroy: ->
+    @subscriptions.dispose() # Dispose of all subscriptions at once
