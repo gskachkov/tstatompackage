@@ -1,5 +1,7 @@
-Test coverage package
+DEPREDICATED -  Test coverage package
 =====================
+
+# DEPREDICATED
 
 Package that allow to show test coverage in gutter.
 
